@@ -1,0 +1,16 @@
+.blank-element {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+    color: white;
+}
+
+.normal-element {
+    background-color: green;
+    transition: filter 0.2s ease-in-out;
+}
+
+.normal-element:hover {
+    filter: brightness(80%);
+}
