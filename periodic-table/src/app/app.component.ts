@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DialogService } from './dialog/dialog.service';
 import { ElementsService } from './elements.service';
 
 @Component({
@@ -11,6 +12,7 @@ export class AppComponent {
   public readonly cols = 18
   public readonly rows = 9
 
+  public selectedElement: any 
   public elements: any[] = new Array<any>();
   public loadingElements: boolean = false
   private elementMap: any = {}
@@ -18,7 +20,8 @@ export class AppComponent {
   public title: string = 'periodic-table';
 
   constructor (
-    private elementService: ElementsService
+    private elementService: ElementsService,
+    private dialogService: DialogService
   ) {
     this.loadElements ( )
     this.loadElementMap ()
@@ -29,8 +32,8 @@ export class AppComponent {
     this.elementService
       .getElements()
       .subscribe( data  => {
-        this.elements = data
-        console.log(data)
+        if ( data && data.elements ) 
+          this.elements = data.elements
       }, error => {
         console.error({ error })
       }, () => {
@@ -40,7 +43,6 @@ export class AppComponent {
 
   private loadElementMap () {
     this.elementMap = this.elementService.getElementMap()
-    console.log(this.elementMap)
   }
 
   private getAtomicNumberByIndexes ( i: number, j: number ) {
@@ -48,13 +50,14 @@ export class AppComponent {
     let linearIndexStr: string = linearIndex.toString()
     if ( 
       this.elementMap && 
-      linearIndexStr in this.elementMap 
+      linearIndexStr in this.elementMap
     ) {
       return ( this.elementMap[linearIndexStr] == '' ) ? -1 : this.elementMap[linearIndexStr]
     }
+    return -1
   }
 
-  public getElementByIndexes (  i: number, j: number ) {
+  private getElementByIndexes (  i: number, j: number ) {
     let atomicNumber: any = this.getAtomicNumberByIndexes ( i, j )
     if ( atomicNumber == -1 ) {
       return null
@@ -67,15 +70,96 @@ export class AppComponent {
     }
   }
 
+  public getPropertyByIndexes ( i: number, j: number, property: string ) : string {
+    const defaultContent: string = ' '
+    let element: any = this.getElementByIndexes ( i, j )
+    if ( element ) {
+      if ( element[property] ) {
+        return element[property];
+      } 
+    } 
+    return defaultContent;
+  }
+
   public getClassesByIndexes( i: number, j: number ) {
     let defaultClass: string = 'blank-element'
     let normalClass: string = 'normal-element'
+    let bottomRowsClass: string = 'lant-act-element'
+    let borderClass: string = 'border-element'
+    let transparentBorderClass: string = 'transparent-border-element'
+
     let classes = [ defaultClass ]
-    let element: any = this.getElementByIndexes (  i, j )
+    let element: any = this.getElementByIndexes ( i, j )
     if ( element ) {
-      classes.push ( normalClass )
-    } 
+      classes.push ( normalClass, borderClass )
+    } else {
+      classes.push ( normalClass, transparentBorderClass )
+    }
+    let isLanthanide: boolean = this.elementService.isLanthanide ( this.getAtomicNumberByIndexes ( i, j ))
+    if  ( isLanthanide ) {
+      classes.push ( bottomRowsClass )
+    }
     return classes.join(' ')
+  }
+
+  public getBackgroundColorByIndexes ( i: number, j: number ) {
+    const defaultColor: string = 'transparent'
+    const whiteColor: string = 'white'
+    let element: any = this.getElementByIndexes ( i, j )
+    if ( element ) {
+      if ( element['cpk-hex'] )
+        return '#' + element['cpk-hex']
+      else
+        return whiteColor
+    } 
+    return defaultColor
+  }
+
+  public getColorByIndexes ( i: number, j: number ) {
+    let element: any = this.getElementByIndexes ( i, j )
+    // Credits to https://stackoverflow.com/a/5624139
+    const hexToRgb = ( hex: string ) => {
+      let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+
+      hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+        return r + r + g + g + b + b;
+      });
+    
+      let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : null;
+    }
+
+    // Creddits to https://stackoverflow.com/a/1855903
+    const contrastColor =  ( r: number, g: number, b: number ) => {
+      let d: string = ''
+      let luminance: number = (0.299 * r + 0.587 * g + 0.114 * b ) / 255;
+      if ( luminance > 0.5 ) {
+        d = '#000000'
+      } else {
+        d = '#FFFFFF'
+      }
+      return d;
+    }
+
+    if ( element && element['cpk-hex']) {
+      let cpkHexColor = element['cpk-hex']
+      let result: any = hexToRgb ( '#' + cpkHexColor )
+
+      if ( result )
+        return contrastColor ( result.r, result.g, result.b )
+    } 
+    return contrastColor ( 255, 255, 255 )
+  }
+
+  public selectElement ( i: number, j: number ) {
+    this.selectedElement = this.getElementByIndexes ( i, j )
+    this.dialogService.open( this.selectedElement, ( data: any ) => {
+      console.log(data)
+    })
   }
 
 }

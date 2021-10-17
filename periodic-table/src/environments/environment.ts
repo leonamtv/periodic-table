@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api_url: 'https://neelpatel05.pythonanywhere.com/'
+  api_url: 'https://raw.githubusercontent.com/Bowserinator/Periodic-Table-JSON/master/PeriodicTableJSON.json'
 };
 
 /*

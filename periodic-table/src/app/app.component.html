@@ -1,21 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
-  <div *ngFor="let itemRow of [].constructor(rows); let i = index">
-    <div [class]="getClassesByIndexes( i, j )" *ngFor="let itemCol of [].constructor(cols); let j = index">
-      <ng-container *ngIf="getElementByIndexes ( i, j)">
-        {{ getElementByIndexes ( i, j)?.symbol }}
-      </ng-container>
-      <ng-container *ngIf="!getElementByIndexes ( i, j)">
-        &nbsp;
-      </ng-container>
-    </div>  
+  <div class="wrapper">
+    <h1>
+      Periodic table
+    </h1>
+    <div *ngFor="let itemRow of [].constructor(rows); let i = index">
+      <div
+        (click)='selectElement(i, j)'
+        [class]="getClassesByIndexes( i, j )"
+        [style.background-color]="getBackgroundColorByIndexes( i, j )"
+        [style.color]="getColorByIndexes( i, j )"
+        *ngFor="let itemCol of [].constructor(cols); let j = index">
+        <table class='elementTable'>
+          <tr>
+            <td>
+              <div class='atomicNumber'>
+                {{ getPropertyByIndexes ( i, j, 'number' ) }}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class='symbol'>
+                {{ getPropertyByIndexes ( i, j, 'symbol' ) }}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class='name'>
+                {{ getPropertyByIndexes ( i, j, 'name' ) }}
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </div>
 </body>
+
 </html>

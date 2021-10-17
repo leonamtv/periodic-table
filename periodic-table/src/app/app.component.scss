@@ -1,16 +1,68 @@
+$base-size: 80px;
+
+body {
+    background-color: #0f1721;
+}
+
+.wrapper {
+    text-align: center;
+    color: white;
+    display: table;
+    margin: 0 auto;
+    h1 {
+        margin: 20px 0px;
+        // background-color: rgba(255, 255, 255, 0.205);
+    }
+}
+
+.elementTable {
+    width: 100%;
+    text-align: center;
+    .atomicNumber {
+        font-size: 10px;
+        // font-size: 1vh;
+    }
+    .symbol {
+        font-size: 30px;
+        // font-size: 2.5vh;
+    }
+    .name {
+        font-size: 10px;
+        // font-size: 0.8vh;
+    }
+}
+
 .blank-element {
     display: inline-block;
-    width: 50px;
-    height: 50px;
+    vertical-align: top;
+    width: $base-size;
+    height: $base-size;
     padding: 5px;
-    color: white;
+    margin: 1px;
+    mix-blend-mode: difference;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.1s ease-in-out;
+}
+
+.border-element {
+    border: none;
+    // border: 1px solid black;
+}
+
+.transparent-border-element {
+    border: none;
+    // border: 1px solid transparent;
 }
 
 .normal-element {
-    background-color: green;
-    transition: filter 0.2s ease-in-out;
+    background-color: rgb(71, 179, 71);
 }
 
-.normal-element:hover {
-    filter: brightness(80%);
+.blank-element:hover {
+    filter: opacity(0.7);
+}
+
+.lant-act-element {
+    margin-top: 10px;
 }
