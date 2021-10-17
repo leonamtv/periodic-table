@@ -1,4 +1,4 @@
-$base-size: 80px;
+$base-size: 8vh;
 
 body {
     background-color: #0f1721;
@@ -9,26 +9,42 @@ body {
     color: white;
     display: table;
     margin: 0 auto;
+
     h1 {
-        margin: 20px 0px;
-        // background-color: rgba(255, 255, 255, 0.205);
+        margin: 0 px 0px 20px 0px;
     }
+
+    img {
+        display: inline-block;
+        width: 2 * $base-size;
+    }
+}
+
+button {
+    position: fixed;
+    right: 10px;
+    font-weight: 600;
+    top: 10px;
+    cursor: pointer;
+    background-color: #3050f8;
+    color: white;
+    padding: 4px 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 3px;
 }
 
 .elementTable {
     width: 100%;
     text-align: center;
     .atomicNumber {
-        font-size: 10px;
-        // font-size: 1vh;
+        font-size: 1.1vh;
     }
     .symbol {
-        font-size: 30px;
-        // font-size: 2.5vh;
+        font-size: 2.5vh;
     }
     .name {
-        font-size: 10px;
-        // font-size: 0.8vh;
+        font-size: 1.1vh;
     }
 }
 
@@ -43,20 +59,15 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: filter 0.1s ease-in-out;
+    border-radius: 4px;
 }
 
 .border-element {
     border: none;
-    // border: 1px solid black;
 }
 
 .transparent-border-element {
     border: none;
-    // border: 1px solid transparent;
-}
-
-.normal-element {
-    background-color: rgb(71, 179, 71);
 }
 
 .blank-element:hover {

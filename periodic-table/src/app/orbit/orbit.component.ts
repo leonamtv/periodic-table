@@ -1,17 +1,20 @@
-import { Component, ElementRef, Input, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'orbit',
   templateUrl: './orbit.component.html',
   styleUrls: ['./orbit.component.scss']
 })
-export class OrbitComponent implements AfterViewInit  {
+export class OrbitComponent implements AfterViewInit, OnDestroy  {
 
   @Input() element: any = {}
   @Input() width: number = 400
   @Input() height: number = 400
 
-  interval: any
+  private readonly oneCyclePer: number = 6
+  private intervalId: any
+  private intervalMs: number = 100
+  private angle: number = 0
 
   @ViewChild("canvas", { static: false }) canvas: ElementRef | undefined
 
@@ -19,9 +22,15 @@ export class OrbitComponent implements AfterViewInit  {
 
   ngAfterViewInit(): void { 
     this.drawOrbit()
-    this.interval = setInterval (() => {
+    this.intervalId = setInterval (() => {
       this.drawOrbit()
-    }, 100)
+    }, this.intervalMs)
+  }
+
+  ngOnDestroy (): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
   
   private drawOrbit () {
@@ -56,24 +65,22 @@ export class OrbitComponent implements AfterViewInit  {
         shells.forEach(( shell: number )=> {
           layerRadius += layerOffset 
 
-          let angularDifference = 360 / shell
+          let angularDifference = parseInt(( 360 / shell).toString())
 
           for ( let i = 0; i < shell; i++ ) {
             let electronCircle = new Path2D();
             
-            let dateAngle = ( 6 * ( date.getSeconds()) + 0.36 * ( date.getMilliseconds())) * Math.PI / 360
-            let offsetAngle = Math.PI / 180 * ( angularDifference * i )
-            let angle = dateAngle + offsetAngle - Math.PI / 2
+            let offsetAngle   = Math.PI / 180 * ( angularDifference * i )
+            let electronAngle = Math.PI / 180 * this.angle + offsetAngle
 
-            let secondX = centerX + layerRadius * Math.cos(angle);
-            let secondY = centerY + layerRadius * Math.sin(angle);
+            let secondX = centerX + layerRadius * Math.cos(electronAngle);
+            let secondY = centerY + layerRadius * Math.sin(electronAngle);
 
             electronCircle.arc( secondX, secondY, electronRadius, 0, 2 * Math.PI);
             
             ctx.fillStyle = "green";
             ctx.lineWidth = 1;
             ctx.fill(electronCircle);
-
           }
           
           let layerCircle = new Path2D();
@@ -83,7 +90,14 @@ export class OrbitComponent implements AfterViewInit  {
           ctx.strokeStyle = "grey";
           ctx.lineWidth = 1;
           ctx.stroke(layerCircle);
+
+          
         });
+
+        let secondsMs: number =  (( date.getSeconds() % this.oneCyclePer ) * 1000 ) + ( date.getMilliseconds())
+
+        this.angle = secondsMs * 360 / ( this.oneCyclePer * 1000 )
+        this.angle = parseInt(this.angle.toString())
 
       }
 

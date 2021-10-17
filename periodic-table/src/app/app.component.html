@@ -5,19 +5,25 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Periodic table</title>
 </head>
 
 <body>
+  <button (click)="openInfoDialog()">
+    Info
+  </button>
   <div class="wrapper">
     <h1>
       Periodic table
     </h1>
+    <a target=”_blank” href='https://leonamtv.github.io/leonamtv/'><img src='../assets/assinatura.png'></a>
+
     <div *ngFor="let itemRow of [].constructor(rows); let i = index">
       <div
         (click)='selectElement(i, j)'
         [class]="getClassesByIndexes( i, j )"
         [style.background-color]="getBackgroundColorByIndexes( i, j )"
+        [style.cursor]="getCursorByIndexes( i, j )"
         [style.color]="getColorByIndexes( i, j )"
         *ngFor="let itemCol of [].constructor(cols); let j = index">
         <table class='elementTable'>

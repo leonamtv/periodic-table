@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DialogService } from './dialog/dialog.service';
 import { ElementsService } from './elements.service';
+import { ColorUtil } from './util/color.util';
 
 @Component({
   selector: 'app-root',
@@ -89,16 +90,21 @@ export class AppComponent {
     let transparentBorderClass: string = 'transparent-border-element'
 
     let classes = [ defaultClass ]
+
     let element: any = this.getElementByIndexes ( i, j )
+    
     if ( element ) {
       classes.push ( normalClass, borderClass )
     } else {
       classes.push ( normalClass, transparentBorderClass )
     }
+    
     let isLanthanide: boolean = this.elementService.isLanthanide ( this.getAtomicNumberByIndexes ( i, j ))
+    
     if  ( isLanthanide ) {
       classes.push ( bottomRowsClass )
     }
+    
     return classes.join(' ')
   }
 
@@ -117,49 +123,30 @@ export class AppComponent {
 
   public getColorByIndexes ( i: number, j: number ) {
     let element: any = this.getElementByIndexes ( i, j )
-    // Credits to https://stackoverflow.com/a/5624139
-    const hexToRgb = ( hex: string ) => {
-      let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-
-      hex = hex.replace(shorthandRegex, function(m, r, g, b) {
-        return r + r + g + g + b + b;
-      });
-    
-      let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-      return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-      } : null;
-    }
-
-    // Creddits to https://stackoverflow.com/a/1855903
-    const contrastColor =  ( r: number, g: number, b: number ) => {
-      let d: string = ''
-      let luminance: number = (0.299 * r + 0.587 * g + 0.114 * b ) / 255;
-      if ( luminance > 0.5 ) {
-        d = '#000000'
-      } else {
-        d = '#FFFFFF'
-      }
-      return d;
-    }
 
     if ( element && element['cpk-hex']) {
       let cpkHexColor = element['cpk-hex']
-      let result: any = hexToRgb ( '#' + cpkHexColor )
+      let result: any = ColorUtil.hexToRgb ( '#' + cpkHexColor )
 
       if ( result )
-        return contrastColor ( result.r, result.g, result.b )
+        return ColorUtil.contrastColor ( result.r, result.g, result.b )
     } 
-    return contrastColor ( 255, 255, 255 )
+    return ColorUtil.contrastColor ( 255, 255, 255 )
+  }
+
+  public getCursorByIndexes( i: number, j: number ) {
+    let element = this.getElementByIndexes ( i, j )
+    return ( element ) ? 'pointer' : 'default'
   }
 
   public selectElement ( i: number, j: number ) {
     this.selectedElement = this.getElementByIndexes ( i, j )
-    this.dialogService.open( this.selectedElement, ( data: any ) => {
-      console.log(data)
-    })
+    if ( this.selectedElement )
+      this.dialogService.open( this.selectedElement, 'element', ( data: any ) => {})
+  }
+
+  public openInfoDialog () {
+    this.dialogService.open( this.selectedElement, 'info', ( data: any ) => {})
   }
 
 }

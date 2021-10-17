@@ -1,1 +1,6 @@
-<app-element [element]="data"></app-element>
+<ng-container *ngIf="data.type == 'element'">
+    <app-element [element]="data.data"></app-element>
+</ng-container>
+<ng-container *ngIf="data.type == 'info'">
+    <app-info></app-info>
+</ng-container>

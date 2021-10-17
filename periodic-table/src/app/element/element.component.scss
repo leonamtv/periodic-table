@@ -1,8 +1,81 @@
-td {
-    font-size: 20px;
+$base-size: 8vh;
+
+h3 {
+    text-align: center;
+}
+
+td, p {
+    font-size: 1.5vh;
 }
 
 .label-cell {
     font-weight: 600;
     padding-right: 20px;
+}
+
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 5px;
+}
+
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 5px;
+}
+
+table tr:first-child td:first-child {
+    border-top-left-radius: 5px;
+}
+
+table tr:first-child td:last-child {
+    border-top-right-radius: 5px;
+}
+
+.elementTable {
+    text-align: center;
+    .atomicNumber {
+        font-size: 1vh;
+    }
+    .symbol {
+        font-size: 3.5vh;
+    }
+}
+
+.blank-element {
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    width: $base-size;
+    height: $base-size;
+    padding: 5px;
+    margin: 1px;
+    mix-blend-mode: difference;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.1s ease-in-out;
+    border-radius: 4px;
+}
+
+.grid-tile {
+    background-color:rgba(255, 255, 255, 0.01);
+    border-radius: 8px;
+    a {
+        color: rgb(55, 220, 55);
+    }
+    h2, p, table {
+        display: inline-block;
+        border: none;
+        tr {
+            border: none;
+            td {
+                padding: 3px 15px;
+                margin: 0;
+                border: none;
+            }
+        }
+    }
+    h2, p {
+        padding: 0px 20px;
+    }
+    p {
+        padding-bottom: 20px;
+    }
 }
