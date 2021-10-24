@@ -13,6 +13,8 @@ export class AppComponent {
   public readonly cols = 18
   public readonly rows = 9
 
+  public theme: 'dark' | 'base' = 'base';
+
   public selectedElement: any 
   public elements: any[] = new Array<any>();
   public loadingElements: boolean = false
@@ -44,6 +46,11 @@ export class AppComponent {
         }
       }
     }
+  }
+
+  public changeTheme () {
+    if ( this.theme == 'base' ) this.theme = 'dark'
+    else this.theme = 'base'
   }
 
   private loadElements () {
@@ -108,7 +115,15 @@ export class AppComponent {
     let borderClass: string = 'border-element'
     let transparentBorderClass: string = 'transparent-border-element'
 
+    
     let classes = [ defaultClass ]
+    
+    if ( i == -1 ) {
+      return [ 'period' ]
+    } 
+    if ( j == -1 ) {
+      return [ 'group' ]
+    }
 
     let element: any = this.getElementByIndexes ( i, j )
     
@@ -130,6 +145,9 @@ export class AppComponent {
   public getBackgroundColorByIndexes ( i: number, j: number ) {
     const defaultColor: string = 'transparent'
     const whiteColor: string = 'white'
+    if ( i == -1 || j == -1 ) {
+      return defaultColor
+    }
     let element: any = this.getElementByIndexes ( i, j )
     if ( element ) {
       if ( element['cpk-hex'] )
@@ -142,7 +160,7 @@ export class AppComponent {
 
   public getColorByIndexes ( i: number, j: number ) {
     let element: any = this.getElementByIndexes ( i, j )
-
+    
     if ( element && element['cpk-hex']) {
       let cpkHexColor = element['cpk-hex']
       let result: any = ColorUtil.hexToRgb ( '#' + cpkHexColor )

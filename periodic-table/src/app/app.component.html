@@ -9,6 +9,11 @@
 </head>
 
 <body>
+  <!-- 
+  In development  
+  <button class='theme' (click)="changeTheme()">
+    Change theme
+  </button> -->
   <button class='list' (click)="openElementsDialog()">
     List of elements
   </button>
@@ -21,37 +26,51 @@
     </h1>
     <a target=”_blank” href='https://leonamtv.github.io/leonamtv/'><img src='../assets/assinatura.png'></a>
 
-    <div *ngFor="let itemRow of [].constructor(rows); let i = index">
+    <div *ngFor="let itemRow of [].constructor(rows + 1); let i = index">
       <div
-        (click)='selectElement(i, j)'
-        [class]="getClassesByIndexes( i, j )"
-        [style.background-color]="getBackgroundColorByIndexes( i, j )"
-        [style.cursor]="getCursorByIndexes( i, j )"
-        [style.color]="getColorByIndexes( i, j )"
-        *ngFor="let itemCol of [].constructor(cols); let j = index">
-        <table class='elementTable'>
-          <tr>
-            <td>
-              <div class='atomicNumber'>
-                {{ getPropertyByIndexes ( i, j, 'number' ) }}
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class='symbol'>
-                {{ getPropertyByIndexes ( i, j, 'symbol' ) }}
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class='name'>
-                {{ getPropertyByIndexes ( i, j, 'name' ) }}
-              </div>
-            </td>
-          </tr>
-        </table>
+        (click)='selectElement(i - 1, j - 1)'
+        [class]="getClassesByIndexes(i - 1, j - 1)"
+        [style.background-color]="getBackgroundColorByIndexes(i - 1, j - 1)"
+        [style.cursor]="getCursorByIndexes(i - 1, j - 1)"
+        [style.color]="getColorByIndexes(i - 1, j - 1)"
+        *ngFor="let itemCol of [].constructor(cols + 1); let j = index"
+      >
+        <ng-container *ngIf="i == 0 || j == 0">
+          <div class='group' *ngIf="i == 0 && j == 0" >
+            &nbsp;
+          </div>
+          <div class='group' *ngIf="j > 0" >
+            {{ j }}
+          </div>
+          <div class='period' *ngIf="i > 0 && i < 8" >
+            {{ i }}
+          </div>
+        </ng-container>
+        <ng-container *ngIf="i > 0 && j > 0">
+          <table class='elementTable'>
+            <tr>
+              <td>
+                <div class='atomicNumber'>
+                  {{ getPropertyByIndexes ( i - 1, j - 1, 'number' ) }}
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class='symbol'>
+                  {{ getPropertyByIndexes (i - 1, j - 1, 'symbol' ) }}
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class='name'>
+                  {{ getPropertyByIndexes (i - 1, j - 1, 'name' ) }}
+                </div>
+              </td>
+            </tr>
+          </table>
+        </ng-container>
       </div>
     </div>
   </div>

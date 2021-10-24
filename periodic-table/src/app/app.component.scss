@@ -1,5 +1,18 @@
 @import '../styles/variables.scss';
 
+.dark {
+    $font-color: rgb(247, 245, 245);
+    $background: rgb(14, 22, 32);
+    $background-shadow: rgba(255, 255, 255, 0.1);
+    $background-shadow-light: rgba(255, 255, 255, 0.01);
+}
+
+.base {
+    $font-color: rgb(14, 22, 32);
+    $background: rgb(247, 245, 245);
+    $background-shadow: rgba(0, 0, 0, 0.1);
+    $background-shadow-light: rgba(0, 0, 0, 0.01);
+}
 
 body {
     background-color: $background;
@@ -33,6 +46,11 @@ button {
     top: 10px;
 }
 
+.theme {
+    background-color: $blue;
+    right: 230px;
+}
+
 .info {
     background-color: $blue;
     right: 10px;
@@ -41,6 +59,20 @@ button {
 .list {
     background-color: $green;
     right: 80px;
+}
+
+.group, .period {
+    display: inline-block;
+    font-size: 1.5vh;
+    color: $font-color;
+    font-weight: 600;
+    cursor: auto;
+}
+
+.group {
+    width: $base-size;
+    padding: 0  5px;
+    margin: 1px;
 }
 
 .elementTable {
