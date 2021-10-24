@@ -1,19 +1,5 @@
 @import '../styles/variables.scss';
 
-.dark {
-    $font-color: rgb(247, 245, 245);
-    $background: rgb(14, 22, 32);
-    $background-shadow: rgba(255, 255, 255, 0.1);
-    $background-shadow-light: rgba(255, 255, 255, 0.01);
-}
-
-.base {
-    $font-color: rgb(14, 22, 32);
-    $background: rgb(247, 245, 245);
-    $background-shadow: rgba(0, 0, 0, 0.1);
-    $background-shadow-light: rgba(0, 0, 0, 0.01);
-}
-
 body {
     background-color: $background;
 }

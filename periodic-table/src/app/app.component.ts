@@ -48,11 +48,6 @@ export class AppComponent {
     }
   }
 
-  public changeTheme () {
-    if ( this.theme == 'base' ) this.theme = 'dark'
-    else this.theme = 'base'
-  }
-
   private loadElements () {
     this.loadingElements = true
     this.elementService

@@ -27,7 +27,7 @@ export class DialogService {
       }
 
     if ( type == 'element' ) {
-      config['width'] = (window.innerWidth - 0.02 * window.innerWidth) + 'px'
+      config['width'] = (window.innerWidth - 0.01 * window.innerWidth) + 'px'
     }
 
     if ( type == 'elements' ) {
