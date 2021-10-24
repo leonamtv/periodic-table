@@ -1,3 +1,5 @@
+@import '../../../styles/variables.scss';
+
 $base-size: 8vh;
 
 h3 {
@@ -11,6 +13,10 @@ td, p {
 .label-cell {
     font-weight: 600;
     padding-right: 20px;
+}
+
+table {
+    margin: 5px;
 }
 
 table tr:last-child td:first-child {
@@ -30,12 +36,15 @@ table tr:first-child td:last-child {
 }
 
 .elementTable {
+    margin: 0;
     text-align: center;
     .atomicNumber {
+        text-align: center; 
         font-size: 1vh;
     }
     .symbol {
-        font-size: 3.5vh;
+        text-align: center; 
+         font-size: 2.5vh;
     }
 }
 
@@ -55,10 +64,10 @@ table tr:first-child td:last-child {
 }
 
 .grid-tile {
-    background-color:rgba(255, 255, 255, 0.01);
+    background-color: $background-shadow-light;
     border-radius: 8px;
     a {
-        color: rgb(55, 220, 55);
+        color: $green;
     }
     h2, p, table {
         display: inline-block;

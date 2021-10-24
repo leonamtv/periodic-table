@@ -1,0 +1,17 @@
+@import '../../../styles/variables.scss';
+
+canvas {
+    background-color: transparent;
+    margin: auto;
+}
+div {
+    margin-bottom: 1vh;
+    margin-left: 20px;
+    p {
+        font-size: 1vh;
+        opacity: 0.8;
+        a {
+            color: $green;
+        }
+    }
+}

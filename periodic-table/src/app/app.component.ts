@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DialogService } from './dialog/dialog.service';
+import { DialogService } from './components/dialog/dialog.service';
 import { ElementsService } from './elements.service';
 import { ColorUtil } from './util/color.util';
 
@@ -24,8 +24,26 @@ export class AppComponent {
     private elementService: ElementsService,
     private dialogService: DialogService
   ) {
-    this.loadElements ( )
-    this.loadElementMap ()
+    this.loadElements()
+    this.loadElementMap()
+  }
+
+  private parseUrlParameters () {
+    const url = new URL(window.location.href);
+    const { pathname } = url
+    let parameter = pathname.replace('/', '')
+    if ( this.elements && this.elements.length > 0 ) {
+      if ( parameter && parameter.length > 0 ) {
+        let element = this.elements.find( e => 
+          e.name.toString().toLowerCase() == parameter.toString().toLowerCase() ||
+          e.symbol.toString().toLowerCase() == parameter.toString().toLowerCase()
+        )
+        if ( element ) {
+          this.selectedElement = element
+          this.openElementDialog()
+        }
+      }
+    }
   }
 
   private loadElements () {
@@ -35,6 +53,7 @@ export class AppComponent {
       .subscribe( data  => {
         if ( data && data.elements ) 
           this.elements = data.elements
+        this.parseUrlParameters()
       }, error => {
         console.error({ error })
       }, () => {
@@ -141,12 +160,20 @@ export class AppComponent {
 
   public selectElement ( i: number, j: number ) {
     this.selectedElement = this.getElementByIndexes ( i, j )
+    this.openElementDialog()
+  }
+
+  public openElementDialog () {
     if ( this.selectedElement )
       this.dialogService.open( this.selectedElement, 'element', ( data: any ) => {})
   }
 
   public openInfoDialog () {
-    this.dialogService.open( this.selectedElement, 'info', ( data: any ) => {})
+    this.dialogService.open( {}, 'info', ( data: any ) => {})
+  }
+
+  public openElementsDialog () {
+    this.dialogService.open( this.elements, 'elements', ( data: any ) => {})
   }
 
 }

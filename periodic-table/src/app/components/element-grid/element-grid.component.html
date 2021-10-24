@@ -1,0 +1,58 @@
+<mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Hydrogen" #input>
+</mat-form-field>
+
+<button
+    class='exportCsv'
+    (click)="exportToCsv()"
+>
+    Export to CSV
+</button>
+
+<table mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort >
+    <ng-container matColumnDef="number">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Number </th>
+        <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
+        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="atomic_mass">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Atomic Mass </th>
+        <td mat-cell *matCellDef="let element"> {{element.atomic_mass}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="density">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Density </th>
+        <td mat-cell *matCellDef="let element"> {{element.density}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="boil">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Boil (K)</th>
+        <td mat-cell *matCellDef="let element"> {{ element.boil }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="melt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Melt (K) </th>
+        <td mat-cell *matCellDef="let element"> {{ element.melt }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr 
+        mat-row *matRowDef="let row; columns: displayedColumns;"
+    ></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{ input.value }}"</td>
+    </tr>
+</table>
+<mat-paginator class='paginator' [pageSizeOptions]="[ 5, 10, 25, 100, 120]" aria-label="Select page of users"></mat-paginator>

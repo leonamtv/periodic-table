@@ -1,12 +1,13 @@
-$base-size: 8vh;
+@import '../styles/variables.scss';
+
 
 body {
-    background-color: #0f1721;
+    background-color: $background;
 }
 
 .wrapper {
     text-align: center;
-    color: white;
+    color: $font-color;
     display: table;
     margin: 0 auto;
 
@@ -22,16 +23,24 @@ body {
 
 button {
     position: fixed;
-    right: 10px;
     font-weight: 600;
-    top: 10px;
     cursor: pointer;
-    background-color: #3050f8;
-    color: white;
+    color: $font-color;
     padding: 4px 10px;
     margin-bottom: 20px;
     border: none;
     border-radius: 3px;
+    top: 10px;
+}
+
+.info {
+    background-color: $blue;
+    right: 10px;
+}
+
+.list {
+    background-color: $green;
+    right: 80px;
 }
 
 .elementTable {
@@ -44,7 +53,7 @@ button {
         font-size: 2.5vh;
     }
     .name {
-        font-size: 1.1vh;
+        font-size: 1vh;
     }
 }
 

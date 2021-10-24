@@ -5,16 +5,22 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ElementComponent } from './element/element.component';
-import { DialogComponent } from './dialog/dialog.component';
+import { ElementComponent } from './components/element/element.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { LabelizerPipe } from './labelizer.pipe';
-import { OrbitComponent } from './orbit/orbit.component';
-import { TempFromKelvinPipe } from './temp-from-kelvin.pipe';
-import { CapitalizePipe } from './capitalize.pipe';
-import { ElectronConfigColorPipe } from './electron-config-color.pipe';
-import { InfoComponent } from './info/info.component';
+import { LabelizerPipe } from './pipes/labelizer.pipe';
+import { OrbitComponent } from './components/orbit/orbit.component';
+import { TempFromKelvinPipe } from './pipes/temp-from-kelvin.pipe';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { ElectronConfigColorPipe } from './pipes/electron-config-color.pipe';
+import { InfoComponent } from './components/info/info.component';
+import { ElementGridComponent } from './components/element-grid/element-grid.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input'
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -26,14 +32,20 @@ import { InfoComponent } from './info/info.component';
     TempFromKelvinPipe,
     CapitalizePipe,
     ElectronConfigColorPipe,
-    InfoComponent
+    InfoComponent,
+    ElementGridComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

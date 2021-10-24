@@ -1,0 +1,55 @@
+
+@import '../../../styles/variables.scss';
+
+* {
+    color: $font-color;
+}
+
+.paginator {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: $background-shadow;
+}
+
+table tr:first-child th:first-child {
+    border-top-left-radius: 5px;
+}
+
+table tr:first-child th:last-child {
+    border-top-right-radius: 5px;
+}
+
+table {
+    background-color: transparent;
+    width: 100%;
+
+
+    tr:nth-child(2n + 1) {
+        background-color: $background-shadow;
+    }
+}
+
+.exportCsv {
+    color: $font-color;
+    font-weight: 600;
+    background-color:$green;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-left: 10px;
+}
+
+::ng-deep {
+    .mat-select-value {
+        color: $font-color;
+    }
+    
+    .mat-input-element::placeholder {
+        color: $font-color;
+    }
+    
+    .mat-form-field-underline,  .mat-form-field-ripple {
+        background-color: $font-color !important;
+    }
+}

@@ -1,0 +1,16 @@
+@import '../../../styles/variables.scss';
+
+* {
+    color: $font-color;
+}
+
+.close {
+    font-weight: 600;
+    float: right;
+    color: $font-color;
+    background-color: $red;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+}

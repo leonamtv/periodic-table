@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ColorUtil } from '../util/color.util';
+import { ColorUtil } from '../../util/color.util';
 
 @Component({
   selector: 'app-element',
