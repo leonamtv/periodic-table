@@ -17,6 +17,7 @@ This project designs a periodic table using the data from <a target=”_blank”
 <p align='center'>
   <img src="periodic-table/src/assets/fig1.png">
 </p>
+
 * You can also navigate straight to a specific element by typing its symbol or name in the address bar like this: 
   * `https://leonamtv.github.io/periodic-table/#/sm` or 
   * `https://leonamtv.github.io/periodic-table/#/samarium`
@@ -24,10 +25,12 @@ This project designs a periodic table using the data from <a target=”_blank”
   <img src="periodic-table/src/assets/fig2.png"><br><br>
 </p>
 Make sure to type <b>/#/</b> before the name or symbol.
+
 * If you click in the <b>List of elements</b> you can have the elements in the form of a table. <br><br>
 <p align='center'>
   <img src="periodic-table/src/assets/fig3.png"><br><br>
 </p>
+
 * You can sort any of the columns and export to <b>.csv</b><br><br>
 <p align='center'>
   <img src="periodic-table/src/assets/fig4.png">
