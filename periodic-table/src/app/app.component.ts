@@ -32,8 +32,9 @@ export class AppComponent {
 
   private parseUrlParameters () {
     const url = new URL(window.location.href);
-    const { pathname } = url
-    let parameter = pathname.replace('/', '')
+    const { hash } = url
+    let parameter = hash.replace('/', '')
+    parameter = parameter.replace('#', '')
     if ( this.elements && this.elements.length > 0 ) {
       if ( parameter && parameter.length > 0 ) {
         let element = this.elements.find( e => 
