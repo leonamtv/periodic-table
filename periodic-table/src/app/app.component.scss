@@ -104,3 +104,16 @@ button {
 .lant-act-element {
     margin-top: 10px;
 }
+
+footer {
+    div {
+        margin-top: 10px;
+        font-size: 1vh;
+        position: absolute;
+        right: 1%;
+        color: $font-color;
+        a {
+            color: $green;
+        }
+    }
+}
