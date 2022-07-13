@@ -8,13 +8,18 @@ import { Component, ElementRef, Input, AfterViewInit, ViewChild, OnDestroy } fro
 export class OrbitComponent implements AfterViewInit, OnDestroy  {
 
   @Input() element: any = {}
-  @Input() width: number = 400
-  @Input() height: number = 400
+  @Input() width: number = 300
+  @Input() height: number = 300
 
-  private readonly oneCyclePer: number = 6
+  public oneCyclePer: number = 6
+  
   private intervalId: any
-  private intervalMs: number = 100
   private angle: number = 0
+  private intervalMs: number = 1
+
+  public minInterval: number = 1
+  public maxInterval: number = 20
+  public stepInterval: number = 1
 
   @ViewChild("canvas", { static: false }) canvas: ElementRef | undefined
 
@@ -35,7 +40,7 @@ export class OrbitComponent implements AfterViewInit, OnDestroy  {
   
   private drawOrbit () {
     const { shells } = this.element
-    const layerOffset = 20
+    const layerOffset = 15
     const electronRadius = 3
     const date = new Date()
 

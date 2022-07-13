@@ -5,6 +5,16 @@
 >
 </canvas>
 <div>
+    <p style="display: inline-block; font-weight: bold">Speed:</p>
+    <mat-slider
+        class="example-margin"
+        [invert]="true"
+        [max]="maxInterval"
+        [min]="minInterval"
+        [step]="stepInterval"
+        [(ngModel)]="oneCyclePer"
+    >
+    </mat-slider>
     <p>- Model based in the <a target=”_blank” href="https://en.wikipedia.org/wiki/Rutherford_model">[Rutherford model]</a>.</p>
     <p>- Distances and speeds are not in scale and do not represent reality.</p>
 </div>

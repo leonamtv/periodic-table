@@ -21,6 +21,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input'
 import { MatSortModule } from '@angular/material/sort';
+import { MatSliderModule } from '@angular/material/slider';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -36,6 +39,7 @@ import { MatSortModule } from '@angular/material/sort';
     ElementGridComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -45,7 +49,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatFormFieldModule,
     MatInputModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
